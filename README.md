@@ -22,6 +22,7 @@ You’ll be shown a mystery player’s **career stats** (Points, Assists, Reboun
 ## 🚀 Getting Started
 
 ## By default the api makes calls to http://localhost:3000/api it's best to set up the backend and make sure it is running before setting up the frontend.
+the backend can be found at https://github.com/MikealFowler/Guess-that-nba-player-backendGuess-that-nba-player-backend
 
 ### 1. Clone the Repo
 
