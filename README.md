@@ -79,14 +79,15 @@ src/
 
 To run the frontend in a Docker container and access it in your browser:
 
-### 1. Build the Docker image:
+### 1. Build or Pull the Docker image:
 ```bash
 docker build -t guess-that-nba-player-frontend .
+docker pull mikealfowler/guess-that-nba-player-frontend:0.0.1
 ```
 
 ### 2. Run the container:
 ```bash
-docker run -p 5173:5173 guess-that-nba-player-frontend
+docker run -p 5173:5173 mikealfowler/guess-that-nba-player-frontend:0.0.1
 ```
 
 ### 3. Open your browser and go to:
