@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  background-color: black;
+  color: azure;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  color: gold;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.listOfPlayers {
+  background-color: #c8102e;
+  width: 85%;
+  color: azure;
+  font-size: 1.5rem;
+  border: gold solid 10px;
+  border-radius: 32px;
+  padding: 1%;
+}
+.centered-box {
+  display: flex;
+  justify-content: center;  /* horizontal */
+  align-items: center;      /* vertical */
+  
+}
+.guess {
+  all: unset; 
+  display: flex;
+  padding: 10px 20px;
+  background-color: #c8102e; 
+  color: white;
+  border-radius: 6px;
+  border: 5px solid gold;
+  width: 350px;
+  height: 30px;
+  margin: 10px auto;
+}
+input::placeholder {
+  color: white;
+  text-align: center;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  color: gold;
+}
+
+.player-stats {
+display: flex;
+justify-content: center;
+font-weight: 900;
+font-size: 1.3rem;
+padding: 5px;
+}
+
+.stat {
+  margin: 5px;
+  color: gold;
+}
+
+.button-guess {
+  all: unset; 
+  display: flex;
+  padding: 10px 20px;
+  background-color: #c8102e; 
+  color: white;
+  border-radius: 6px;
+  border: 5px solid gold;
+  cursor: pointer;
+  width: 50px;
+  height: 20px;
+  margin: 10px auto;
+}
+
+.button-hint {
+  all: unset; 
+  display: flex;
+  padding: 10px 10px;
+  background-color: #c8102e; 
+  color: white;
+  border-radius: 6px;
+  border: 5px solid gold;
+  cursor: pointer;
+  margin: 10px auto;
+}
+
+.hint-answer {
+  color: gold;
+}
