@@ -75,6 +75,27 @@ src/
 - Enhance UI/UX for mobile
 
 ---
+## 🐳 Run the Frontend with Docker
+
+To run the frontend in a Docker container and access it in your browser:
+
+### 1. Build the Docker image:
+```bash
+docker build -t guess-that-nba-player-frontend .
+```
+
+### 2. Run the container:
+```bash
+docker run -p 5173:5173 guess-that-nba-player-frontend
+```
+
+### 3. Open your browser and go to:
+[http://localhost:5173](http://localhost:5173)
+
+> 💡 If `localhost` doesn’t work, try:  
+> [http://127.0.0.1:5173](http://127.0.0.1:5173)
+
+---
 
 ## 🙌 Credits
 
