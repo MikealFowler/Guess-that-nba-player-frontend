@@ -72,8 +72,7 @@ src/
 
 ## 📝 To-Do
 
-- Add score tracking
-- Show correct answer after a wrong guess
+- Show correct answer after a wrong guess (after so many tries)
 - Add difficulty modes (e.g., hide more stats)
 - Enhance UI/UX for mobile
 
@@ -90,7 +89,7 @@ docker pull mikealfowler/guess-that-nba-player-frontend:0.0.1
 
 ### 2. Run the container:
 ```bash
-docker run -p 5173:5173 mikealfowler/guess-that-nba-player-frontend:0.0.1
+docker run -d -p 5173:5173 mikealfowler/guess-that-nba-player-frontend:0.0.1
 ```
 
 ### 3. Open your browser and go to:

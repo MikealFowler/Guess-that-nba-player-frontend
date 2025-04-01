@@ -49,7 +49,7 @@ function App() {
       <section className='centered-box'>
         <p className='listOfPlayers'>LeBron James, Magic Johnson, Reggie Miller, David Robinson, Damian Lillard, Chris Paul, Robert Parish, James Harden,
           Bob Pettit, Rick Barry, Jerry Lucas, Elgin Baylor, Ray Allen, Russell Westbrook, Bill Walton, Bill Russell, John Havlicek, Clyde Drexler, Earl Monroe,
-          Isiah Thomas, Larry Bird, Karl Malone, Dominique Wilkins, George Mikan, Patrick Ewing, Allen Iverson, Moses Malone, Paul Arizin, Julius Erving, John Stockton,
+          Isiah Thomas, Larry Bird, Karl Malone, Dominique Wilkins, George Mikan, Patrick Ewing, Allen Iverson, Moses Malone, Julius Erving, John Stockton,
           Nate Archibald, Steve Nash, Kevin Garnett, Kevin McHale, Bob Cousy, Gary Payton, Bob McAdoo, Anthony Davis, Pete Maravich, James Worthy,
           Shaquille O’Neal, Tim Duncan, Lenny Wilkens, Scottie Pippen, Kevin Durant, Dwyane Wade, Jerry West, Hal Greer, Kawhi Leonard, Kareem Abdul-Jabbar, Carmelo Anthony,
           Paul Pierce, Rick Barry, George Gervin, Dennis Rodman, Giannis Antetokounmpo, Dave Bing, Billy Cunningham, Wilt Chamberlain, Wes Unseld, Dave Cowens, Michael Jordan,
