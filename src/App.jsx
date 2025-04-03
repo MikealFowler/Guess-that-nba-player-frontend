@@ -1,42 +1,51 @@
 import { useEffect, useState } from 'react';
-import api from './api';
-import './App.css'
+import { supabase } from './supabaseClient.ts';
+import './App.css';
 
 function App() {
-  const [player, setPlayer] = useState(null);
   const [guess, setGuess] = useState('');
   const [hint, setHint] = useState(false);
   const [allPlayers, setAllPlayers] = useState(null);
+  const [player, setPlayer] = useState(null); // ✅ This was missing!
 
-  // This function is for grabbing a new random player from the database
-  const grabNewPlayer = () => {
-    api.get('/randomplayer')
-      .then((res) => {
-        setPlayer(res.data);
-      })
-      .catch((err) => {
-        console.error('API error:', err);
-      });
-  }
+  // ✅ Grab a new random player and set in state
+  const grabNewPlayer = async () => {
+    const randomId = Math.floor(Math.random() * 76) + 1;
 
-  // This function is for grabbing all players from the database
-  const grabAllPlayers = () => {
-    api.get('/allplayers')
-      .then((res) => {
-        setAllPlayers(res.data);
-      })
-      .catch((err) => {
-        console.error('API error:', err);
-      });
-  }
+    const { data, error } = await supabase
+      .from('player')
+      .select('*')
+      .eq('id', randomId)
+      .single();
 
-  // this useEffect is to grab a new random player, and all players upon loading the website
+    if (error) {
+      console.error('Error fetching player:', error);
+      return;
+    }
+
+    setPlayer(data); // ✅ Set the player in state
+  };
+
+  // ✅ Grab all players' names for the list at the top
+  const grabAllPlayers = async () => {
+    const { data, error } = await supabase
+      .from('player')
+      .select('player_name');
+
+    if (error) {
+      console.error('Error fetching all players:', error);
+      return;
+    }
+
+    setAllPlayers(data);
+  };
+
+  // ✅ On initial load: get random player and all names
   useEffect(() => {
     grabNewPlayer();
     grabAllPlayers();
   }, []);
 
-  // this component is for handling the guess box to see if its the correct player or not
   const handleGuess = (e) => {
     e.preventDefault();
     if (!player) return;
@@ -47,47 +56,52 @@ function App() {
     if (cleanedGuess === actualName) {
       alert('Correct!');
       grabNewPlayer();
-      setHint(false)
+      setHint(false);
     } else {
       alert('Wrong guess. Try again!');
     }
     setGuess('');
   };
-  // This is to toggle the hint box on or off
-  const showhint = () => {
-    setHint(!hint)
-  }
+
+  const showHint = () => {
+    setHint(!hint);
+  };
 
   return (
     <div>
-      <h2 className='title'>NBA 75th Anniversary Team </h2>
+      <h2 className='title'>NBA 75th Anniversary Team</h2>
+
+      {/* 🧠 All player names */}
       <section className='listOfPlayers'>
         {allPlayers ? (
-          <p>
-            {allPlayers.map((player) => {
-              const name = player.player_name;
-              return `${name + ", "}`;
-            })}
-          </p>
+          <div className='name-list'>
+            {allPlayers.map((player, index) => (
+              <span key={index} className='player-name'>
+                {player.player_name +", "}
+              </span>
+            ))}
+          </div>
         ) : (
           <p>Loading player names...</p>
         )}
       </section>
+
       <h1>Guess That NBA Player</h1>
+
+      {/* 🧠 Random player stats */}
       {player ? (
         <div className='player-stats'>
           <ul>
-            {/* This is line of code below reveals the players name with rest of stats was  used for developemnt 
-            <p className='stat'><strong>Name:</strong> {player.player_name}</p> */}
+            {/* <p className='stat'><strong>Name:</strong> {player.player_name}</p> */}
             <p className='stat'><strong>Points Avg:</strong> {player.points_avg}</p>
             <p className='stat'><strong>Assists Avg:</strong> {player.assists_avg}</p>
             <p className='stat'><strong>Rebounds Avg:</strong> {player.rebounds_avg}</p>
             <p className='stat'><strong>Steals Avg:</strong> {player.steals_avg}</p>
             <p className='stat'><strong>Blocks Avg:</strong> {player.blocks_avg}</p>
-            <p className='stat'><strong>Finals Appearence:</strong> {player.finals_played}</p>
+            <p className='stat'><strong>Finals Appearances:</strong> {player.finals_played}</p>
             <p className='stat'><strong>Finals Won:</strong> {player.finals_won}</p>
           </ul>
-          {/* This is my hint logic to give just the initials back of the Basketball player */}
+
           {hint && (
             <p className='hint-answer'>
               This player’s initials are:{' '}
@@ -95,13 +109,15 @@ function App() {
                 .split(' ')
                 .map(name => name.charAt(0))
                 .join('.')}
+              .
             </p>
           )}
         </div>
       ) : (
         <p>Loading player...</p>
       )}
-      {/* This is where the code handles clicking the button to submit guess */}
+
+      {/* 🧠 Guess input */}
       <form onSubmit={handleGuess}>
         <input
           type="text"
@@ -113,11 +129,14 @@ function App() {
         />
         <button type="submit" className='button-guess'>Submit</button>
       </form>
-      <button onClick={showhint} className='button-hint'>Hint</button>
+
+      <button onClick={showHint} className='button-hint'>Hint</button>
+
       <section>
-        <h3>Quick tip: The NBA offically started recording steals and blocks
-          1973-1974 season. So if you see somoene with no steals or blocks they
-          played before then.
+        <h3>
+          Quick tip: The NBA officially started recording steals and blocks
+          in the 1973–1974 season. So if you see someone with no steals or
+          blocks, they likely played before then.
         </h3>
       </section>
     </div>
