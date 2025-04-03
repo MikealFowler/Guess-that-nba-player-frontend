@@ -77,7 +77,7 @@ function App() {
           <div className='name-list'>
             {allPlayers.map((player, index) => (
               <span key={index} className='player-name'>
-                {player.player_name +", "}  
+                {player.player_name +", "}   
               </span>
             ))}
           </div>
