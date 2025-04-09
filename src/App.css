@@ -1,84 +1,76 @@
 body {
   margin: 0;
-  background-color: black;
-  color: azure;
+  background-color: #FFFFFF; 
+  color: #8392f6; 
 }
 
-h1 {
+h1, .title {
   display: flex;
   justify-content: center;
-  color: gold;
+  color: #ff6067; 
 }
 
 h3 {
   display: flex;
   justify-content: center;
+  color: #8392f6; 
 }
 
 .listOfPlayers {
-  background-color: #c8102e;
+  background-color: #8392f6; 
   width: 85%;
-  color: azure;
+  color: #FFFFFF; 
   font-size: 1.5rem;
-  border: gold solid 10px;
+  border: 10px solid #ff6067; 
   border-radius: 32px;
   padding: 1%;
   margin: 0 auto;
   text-align: center;
-}
-.centered-box {
-  display: flex;
-  justify-content: center;  /* horizontal */
-  align-items: center;      /* vertical */
   
 }
+
 .guess {
-  all: unset; 
+  all: unset;
   display: flex;
   padding: 10px 20px;
-  background-color: #c8102e; 
-  color: white;
+  background-color: #ff6067; 
+  color: #FFFFFF; 
   border-radius: 6px;
-  border: 5px solid gold;
+  border: 5px solid #8392f6; 
   width: 350px;
   height: 30px;
   margin: 10px auto;
 }
+
 input::placeholder {
-  color: white;
+  color: #FFFFFF; 
   text-align: center;
 }
 
-.title {
-  display: flex;
-  justify-content: center;
-  color: gold;
-}
-
 .player-stats {
-justify-content: center;
-font-weight: 900;
-font-size: 1.3rem;
-padding: 5px;
-display: flex;
-flex-direction: column;   /* stack children vertically */
-align-items: center;      /* center them horizontally */
-justify-content: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.3rem;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .stat {
   margin: 5px;
-  color: gold;
+  color: #ff6067; 
 }
 
 .button-guess {
-  all: unset; 
+  all: unset;
   display: flex;
   padding: 10px 20px;
-  background-color: #c8102e; 
-  color: white;
+  background-color: #ff6067; 
+  color: #FFFFFF; 
   border-radius: 6px;
-  border: 5px solid gold;
+  border: 5px solid #8392f6; 
   cursor: pointer;
   width: 50px;
   height: 20px;
@@ -86,29 +78,27 @@ justify-content: center;
 }
 
 .button-hint {
-  all: unset; 
+  all: unset;
   display: flex;
   padding: 10px 10px;
-  background-color: #c8102e; 
-  color: white;
+  background-color: #ff6067; 
+  color: #FFFFFF; 
   border-radius: 6px;
-  border: 5px solid gold;
+  border: 5px solid #8392f6; 
   cursor: pointer;
   margin: 10px auto;
 }
 
 .hint-answer {
-  color: gold;
-  display: block;
+  color: #ff6067; 
   display: flex;
-
 }
 
 .hint-buttons {
   display: flex;
-  justify-content: center; /* center the group */
+  justify-content: center;
   align-items: center;
-  gap: 10px; /* space between the buttons */
+  gap: 10px;
   width: fit-content;
-  margin: 20px auto; /* center container itself */
+  margin: 20px auto;
 }
