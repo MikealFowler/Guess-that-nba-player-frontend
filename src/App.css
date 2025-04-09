@@ -56,11 +56,14 @@ input::placeholder {
 }
 
 .player-stats {
-display: flex;
 justify-content: center;
 font-weight: 900;
 font-size: 1.3rem;
 padding: 5px;
+display: flex;
+flex-direction: column;   /* stack children vertically */
+align-items: center;      /* center them horizontally */
+justify-content: center;
 }
 
 .stat {
@@ -96,4 +99,16 @@ padding: 5px;
 
 .hint-answer {
   color: gold;
+  display: block;
+  display: flex;
+
+}
+
+.hint-buttons {
+  display: flex;
+  justify-content: center; /* center the group */
+  align-items: center;
+  gap: 10px; /* space between the buttons */
+  width: fit-content;
+  margin: 20px auto; /* center container itself */
 }

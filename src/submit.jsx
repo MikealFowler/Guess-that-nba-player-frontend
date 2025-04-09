@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 
 function SubmitPlayer() {
@@ -57,5 +57,6 @@ function SubmitPlayer() {
     </div>
   );
 }
+
 
 export default SubmitPlayer;

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabaseClient.ts';
-//import './App.css';
+import './App.css';
 
 function App() {
   const [guess, setGuess] = useState('');
   const [hint, setHint] = useState(false);
+  const [hint2, setHint2] = useState(false)
   const [allPlayers, setAllPlayers] = useState(null);
-  const [player, setPlayer] = useState(null); // ✅ This was missing!
+  const [player, setPlayer] = useState(null);
+  const [playerTeams, setPlayerTeams] = useState([]);
 
   // ✅ Grab a new random player and set in state
   const grabNewPlayer = async () => {
@@ -23,7 +25,8 @@ function App() {
       return;
     }
 
-    setPlayer(data); // ✅ Set the player in state
+    setPlayer(data); // update player state
+    fetchPlayerTeams(data.id); // fetch teams for that player only
   };
 
   // ✅ Grab all players' names for the list at the top
@@ -38,6 +41,29 @@ function App() {
     }
 
     setAllPlayers(data);
+  };
+
+  const fetchPlayerTeams = async (playerId) => {
+    const { data: player_team, error } = await supabase
+      .from('player_team')
+      .select("team_id")
+      .eq('player_id', playerId);
+
+    if (error) {
+      console.error('Error fetching player_team data:', error);
+      return;
+    }
+    const teamIds = player_team.map((entry) => entry.team_id);
+    const { data: teams, error: teamError } = await supabase
+      .from('team')
+      .select('name')
+      .in('id', teamIds);
+
+    if (teamError) {
+      console.error('Error fetching team names:', teamError);
+      return;
+    }
+    setPlayerTeams(teams.map((team) => team.name));
   };
 
   // ✅ On initial load: get random player and all names
@@ -57,6 +83,7 @@ function App() {
       alert('Correct!');
       grabNewPlayer();
       setHint(false);
+      setHint2(false)
     } else {
       alert('Wrong guess. Try again!');
     }
@@ -66,18 +93,20 @@ function App() {
   const showHint = () => {
     setHint(!hint);
   };
-
+  const showHint2 = () => {
+    setHint2(!hint2)
+  }
   return (
     <div>
       <h2 className='title'>NBA 75th Anniversary Team</h2>
 
-      {/* 🧠 All player names */}
+      {/* All player names */}
       <section className='listOfPlayers'>
         {allPlayers ? (
           <div className='name-list'>
             {allPlayers.map((player, index) => (
               <span key={index} className='player-name'>
-                {player.player_name +", "}   
+                {player.player_name + ", "}
               </span>
             ))}
           </div>
@@ -88,7 +117,7 @@ function App() {
 
       <h1>Guess That NBA Player</h1>
 
-      {/* 🧠 Random player stats */}
+      {/* Random player stats */}
       {player ? (
         <div className='player-stats'>
           <ul>
@@ -104,8 +133,19 @@ function App() {
 
           {hint && (
             <p className='hint-answer'>
+              {playerTeams.length > 0
+                ? `This player played for these teams: ${playerTeams.join(', ')}`
+                : 'Team information is not available for this player.'}
+            </p>
+          )}
+          {hint2 && (
+            <p className='hint-answer'>
               This player’s initials are:{' '}
-              {player.player_name}
+              {player.player_name
+                .split(' ')
+                .map(name => name.charAt(0))
+                .join('.')}
+              .
             </p>
           )}
         </div>
@@ -113,7 +153,7 @@ function App() {
         <p>Loading player...</p>
       )}
 
-      {/* 🧠 Guess input */}
+      {/* Guess input */}
       <form onSubmit={handleGuess}>
         <input
           type="text"
@@ -125,9 +165,10 @@ function App() {
         />
         <button type="submit" className='button-guess'>Submit</button>
       </form>
-
+      <section className='hint-buttons'>
       <button onClick={showHint} className='button-hint'>Hint</button>
-
+      <button onClick={showHint2} className='button-hint'>Hint 2</button>
+      </section>
       <section>
         <h3>
           Quick tip: The NBA officially started recording steals and blocks
