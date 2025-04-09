@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabaseClient.ts';
-import './App.css';
+//import './App.css';
 
 function App() {
   const [guess, setGuess] = useState('');
@@ -105,11 +105,7 @@ function App() {
           {hint && (
             <p className='hint-answer'>
               This player’s initials are:{' '}
-              {player.player_name
-                .split(' ')
-                .map(name => name.charAt(0))
-                .join('.')}
-              .
+              {player.player_name}
             </p>
           )}
         </div>
