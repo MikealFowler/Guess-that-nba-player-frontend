@@ -33,7 +33,8 @@ function App() {
   const grabAllPlayers = async () => {
     const { data, error } = await supabase
       .from('player')
-      .select('player_name');
+      .select('player_name')
+      .order('player_name', { ascending: true });
 
     if (error) {
       console.error('Error fetching all players:', error);
