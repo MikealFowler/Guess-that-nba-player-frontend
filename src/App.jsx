@@ -25,7 +25,7 @@ function App() {
       console.error('Error fetching player:', error);
       return;
     }
-      
+
     setPlayer(data); // update player state
     fetchPlayerTeams(data.id); // fetch teams for that player only
   };
@@ -172,8 +172,8 @@ function App() {
         <button type="submit" className='button-guess'>Submit</button>
       </form>
       <section className='hint-buttons'>
-      <button onClick={showHint} className='button-hint'>Hint</button>
-      <button onClick={showHint2} className='button-hint'>Hint 2</button>
+        <button onClick={showHint} className='button-hint'>Hint</button>
+        <button onClick={showHint2} className='button-hint'>Hint 2</button>
       </section>
       <section>
         <h3>
