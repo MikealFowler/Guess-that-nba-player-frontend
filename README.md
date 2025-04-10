@@ -110,7 +110,7 @@ Made with 💪, caffeine, and a love for basketball.
 
 ## 📸 Screenshot
 
-![Game UI](./GameUI.png) 
+![Game UI](./Game.png) 
 
 ---
 
