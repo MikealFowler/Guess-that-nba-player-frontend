@@ -2,6 +2,7 @@ body {
   margin: 0;
   background-color: #EDDDD4; 
   color: #197278; 
+  padding-bottom: 50px;
 }
 
 h1, .title {
@@ -37,7 +38,7 @@ h3 {
   color: #EDDDD4; 
   border-radius: 6px;
   border: 5px solid #197278; 
-  width: 350px;
+  width: 50%;
   height: 30px;
   margin: 10px auto;
 }
@@ -101,4 +102,21 @@ input::placeholder {
   gap: 10px;
   width: fit-content;
   margin: 20px auto;
+}
+
+.struck-out {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+.button-mode {
+  position: fixed;
+  bottom: 0px; 
+  left: 0px;   
+  padding: 10px 10px;
+  background-color: #C44536; 
+  color: #EDDDD4; 
+  border-radius: 6px;
+  border: 5px solid #197278; 
+  cursor: pointer;
 }

@@ -10,6 +10,8 @@ function App() {
   const [allPlayers, setAllPlayers] = useState(null);
   const [player, setPlayer] = useState(null);
   const [playerTeams, setPlayerTeams] = useState([]);
+  const [wrongGuesses, setWrongGuesses] = useState([]);
+  const [hardMode, setHardMode] = useState(true)
 
   // ✅ Grab a new random player and set in state
   const grabNewPlayer = async () => {
@@ -20,7 +22,6 @@ function App() {
       .select('*')
       .eq('id', randomId)
       .single();
-
     if (error) {
       console.error('Error fetching player:', error);
       return;
@@ -89,9 +90,14 @@ function App() {
       alert('Correct!');
       grabNewPlayer();
       setHint(false);
-      setHint2(false)
+      setHint2(false);
+      setWrongGuesses([]); // clear wrong guesses for the new player
     } else {
       alert('Wrong guess. Try again!');
+      // Add to wrong guesses if not already there
+      if (!wrongGuesses.includes(cleanedGuess)) {
+        setWrongGuesses(prev => [...prev, cleanedGuess]);
+      }
     }
     setGuess('');
   };
@@ -102,23 +108,34 @@ function App() {
   const showHint2 = () => {
     setHint2(!hint2)
   }
+  const changeMode = () => {
+    setHardMode(!hardMode)
+  }
   return (
     <div>
       <h2 className='title'>NBA 75th Anniversary Team</h2>
 
       {/* All player names */}
       <section className='listOfPlayers'>
-        {allPlayers ? (
-          <div className='name-list'>
-            {allPlayers.map((player, index) => (
-              <span key={index} className='player-name'>
-                {player.player_name + ", "}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <p>Loading player names...</p>
-        )}
+        {hardMode ? (
+          allPlayers ? (
+            <div className='name-list'>
+              {allPlayers.map((player, index) => {
+                const isWrong = wrongGuesses.includes(player.player_name.toLowerCase());
+                return (
+                  <span
+                    key={index}
+                    className={`player-name ${isWrong ? 'struck-out' : ''}`}
+                  >
+                    {player.player_name + ", "}
+                  </span>
+                );
+              })}
+            </div>
+          ) : (
+            <p>Loading player names...</p>
+          )
+        ) : null}
       </section>
 
       <h1>Guess That NBA Player</h1>
@@ -158,7 +175,6 @@ function App() {
       ) : (
         <p>Loading player...</p>
       )}
-
       {/* Guess input */}
       <form onSubmit={handleGuess}>
         <input
@@ -182,6 +198,7 @@ function App() {
           blocks, they likely played before then.
         </h3>
       </section>
+      <button onClick={changeMode} className='button-mode'>Hard Mode</button>
     </div>
   );
 }
