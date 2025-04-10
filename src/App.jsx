@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { supabase } from './supabaseClient.ts';
 import './App.css';
 
@@ -6,6 +6,7 @@ function App() {
   const [guess, setGuess] = useState('');
   const [hint, setHint] = useState(false);
   const [hint2, setHint2] = useState(false)
+  const hasMounted = useRef(false);
   const [allPlayers, setAllPlayers] = useState(null);
   const [player, setPlayer] = useState(null);
   const [playerTeams, setPlayerTeams] = useState([]);
@@ -24,24 +25,9 @@ function App() {
       console.error('Error fetching player:', error);
       return;
     }
-
+      
     setPlayer(data); // update player state
     fetchPlayerTeams(data.id); // fetch teams for that player only
-  };
-
-  // ✅ Grab all players' names for the list at the top
-  const grabAllPlayers = async () => {
-    const { data, error } = await supabase
-      .from('player')
-      .select('player_name')
-      .order('player_name', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching all players:', error);
-      return;
-    }
-
-    setAllPlayers(data);
   };
 
   const fetchPlayerTeams = async (playerId) => {
@@ -64,13 +50,32 @@ function App() {
       console.error('Error fetching team names:', teamError);
       return;
     }
+    console.log('🧩 Raw player_team rows:', player_team);
+    console.log('🧩 Extracted teamIds:', teamIds);
     setPlayerTeams(teams.map((team) => team.name));
+  };
+
+  // ✅ Grab all players' names for the list at the top
+  const grabAllPlayers = async () => {
+    const { data, error } = await supabase
+      .from('player')
+      .select('player_name')
+      .order('player_name', { ascending: true });
+    if (error) {
+      console.error('Error fetching all players:', error);
+      return;
+    }
+
+    setAllPlayers(data);
   };
 
   // ✅ On initial load: get random player and all names
   useEffect(() => {
-    grabNewPlayer();
-    grabAllPlayers();
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      grabNewPlayer();
+      grabAllPlayers();
+    }
   }, []);
 
   const handleGuess = (e) => {
